@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {postNew} from '../../redux/actions/index';
 import Styles from './CreateAnimal.module.css';
@@ -10,6 +10,7 @@ import NavBar from '../NavBar/NavBar';
 
 function CreateAnimal() {
   const dispatch = useDispatch()
+  const [error, setError] = useState({})
   const [input,setInput]= useState({
        idSenasa:"",
       typeAnimal:["novillo", 'toro','vaquillona'],
@@ -18,6 +19,20 @@ function CreateAnimal() {
       deviceNumber:"",
       weight:0,
   })
+
+
+  function validate(){
+    let error={};
+    if(!input.idSenasa || !input.typeAnimal|| !input.name || !input.dispositive|| !input.deviceNumber){
+        error.name = ' ** Los Campos deben estar completos'
+    }
+    return error
+}
+
+
+
+
+
 
 
 
@@ -43,6 +58,10 @@ function CreateAnimal() {
         ...input, //haceme una copia de lo que tengo
         [e.target.name] : e.target.value
     })
+    setError(validate({
+      ...input,
+      [e.target.name] : e.target.value
+  }))
     
 }
 
@@ -52,6 +71,10 @@ function handleCheck(e){
           ...input,
           dispositive: e.target.value
       })
+      setError(validate({
+        ...input,
+        [e.target.name] : e.target.value
+    }))
       
   } 
 }
@@ -68,9 +91,12 @@ function handleCheck(e){
                 <div className={Styles.activityName} >
                     <label>Id Senasa:</label> 
                     <input
-                     type='text' value={input.idSenasa}
+                     type='text' maxLength={16} minLength={16} value={input.idSenasa}
                      name='idSenasa' placeholder="ID senasa..."
                      onChange={(e)=>handleChange(e)} />
+                     {error.name && (
+                      <p className={Styles.error}>{error.name}</p>
+                      )}
                      
                 </div>
                 <div className={Styles.difficulty}>
@@ -81,6 +107,10 @@ function handleCheck(e){
                         <option value={'toro'}>toro</option>
                         <option value={'vaquillona'}>vaquillona</option>
                     </select>
+
+                    {error.name && (
+                          <p className={Styles.error}>{error.name}</p>
+                      )}
                   
                 </div>
                 <div className={Styles.duration}>
@@ -91,7 +121,7 @@ function handleCheck(e){
 
                 <div className={Styles.duration}>
                     <label>Potrero's Name :</label>
-                    <input type='text' value={input.name} onChange={handleChange }  name='name' placeholder='Potreros Name'/>
+                    <input type='text' maxLength={200} value={input.name} onChange={handleChange }  name='name' placeholder='Potreros Name'/>
                     
                 </div>
 
@@ -103,7 +133,9 @@ function handleCheck(e){
                     <div>
                     <label><input type='checkbox' name='collar' value='collar' onChange={e =>handleCheck(e)}/> collar</label>
                     <label><input type='checkbox' name='caravana' value='caravana' onChange={e =>handleCheck(e)}/> caravana </label>
-                    
+                    {error.name && (
+                          <p className={Styles.error}>{error.name}</p>
+                      )}
                     </div>
                    
                 </div>
@@ -111,9 +143,12 @@ function handleCheck(e){
                 <div className={Styles.activityName} >
                     <label>Device Number:</label> 
                     <input
-                     type='text' value={input.deviceNumber}
-                     name='deviceNumber' placeholder="Device Number..."
+                     type='text' maxLength={8} min={8} value={input.deviceNumber}
+                     name='deviceNumber' placeholder="Please Enter 8 caracters..."
                      onChange={handleChange} />
+                      {error.name && (
+                      <p className={Styles.error}>{error.name}</p>
+                      )}
                       
                 </div>
              

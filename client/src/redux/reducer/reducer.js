@@ -1,8 +1,9 @@
-import { GET_ALL_RECORDS, RECORD_DETAIL, POST_NEW ,DELETE_RECORD,  PUT_RECORD} from "../actions"
+import { GET_ALL_RECORDS, RECORD_DETAIL, POST_NEW ,DELETE_RECORD,  PUT_RECORD, SEARCH_TYPE} from "../actions"
 
 const initialState ={
     records:[],
     detail: {},
+    searchType: []
 }
 
 
@@ -30,6 +31,13 @@ export default function rootReducer (state= initialState, action){
         case  PUT_RECORD:
             return{
                 ...state
+            } 
+            
+        case SEARCH_TYPE:
+            return{
+                ...state,
+                searchType : [...action.payload],
+                records :[...action.payload]
             }    
             default :
                 return {

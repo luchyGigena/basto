@@ -6,7 +6,8 @@ export const  GET_ALL_RECORDS = 'GET_ALL_RECORDS';
 export const RECORD_DETAIL ='RECORD_DETAIL';
 export const POST_NEW ='POST_NEW';
 export const DELETE_RECORD='DELETE_RECORD';
-export const  PUT_RECORD =' PUT_RECORD'
+export const  PUT_RECORD =' PUT_RECORD';
+export const SEARCH_TYPE ='SEARCH_TYPE'
 
 
 export const getListaAnimal = () => {
@@ -102,3 +103,25 @@ export const getListaAnimal = () => {
             });
         };
       };      
+
+
+
+      export const searchAnimal = (search) => {
+        return async (dispatch) => {
+          try {
+            const { data } = await axios.get(
+              `http://localhost:3001/api/listAnimals?typeAnimal=${search}`,
+              
+            );
+            return dispatch({
+              type:SEARCH_TYPE,
+              payload: data,
+            });
+          } catch (error) {
+            return dispatch({
+              type:SEARCH_TYPE,
+              payload: ["No Record found"],
+            });
+          }
+        };
+      };

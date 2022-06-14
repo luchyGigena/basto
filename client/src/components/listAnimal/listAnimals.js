@@ -5,7 +5,8 @@ import NavBar from '../NavBar/NavBar';
 
 import {Link} from 'react-router-dom';
 import {Table,Thead,Tbody,Tr,Th,Td,TableContainer, Button} from '@chakra-ui/react';
-import { getListaAnimal, deleteRecord} from '../../redux/actions/index'
+import { getListaAnimal, deleteRecord} from '../../redux/actions/index';
+import SearchBar from '../SearchBar/SearchBar'
 
 
 
@@ -38,6 +39,9 @@ function ListAnimals() {
   return (
     <div>
         <NavBar />
+
+        <SearchBar />
+
         <h2>All Records</h2>
         
 
