@@ -1,5 +1,5 @@
 # basto
-Challenge
+Challenge Lucia Gigena
 
 
 
@@ -19,7 +19,7 @@ Para correr el front-end y el back-end necesitamos abrir 2 terminales.
 
 2) escribimos en la terminal npm start
 
- LISTO ! La aplicacion esta lista para ser ejecutada y probada 
+ La aplicacion esta lista para ser ejecutada y probada 
 
 
 
